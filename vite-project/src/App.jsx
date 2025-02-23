@@ -5,17 +5,15 @@ import Input from './component/Input.jsx'
 function App() {
   const [words, setWords] = useState([]);
   const [word, setWord] = useState('');
+  const [visiable, setVisiable] = useState("hidden");
 
-  const [count, setCount] = useState();
+  const [count, setCount] = useState(0);
   const [isCorrect, setCorrect] = useState(false);
 
-  const increaseCount= (n) => {
-    setCount(n);
-  }
-
   useEffect(()=>{ //6번째까지 못맞춤
+    console.log(count);
     if (!isCorrect && count >= 6){
-      console.log("긑");
+      setVisiable("visiable");
     }
   }, [count])
 
@@ -39,23 +37,23 @@ function App() {
 
   return (
     <>
-    <header className='flex justify-center items-center'>
-      <h1 className='text-5xl m-4'>wordle clone by JES</h1>
+    <header className='flex justify-center items-center bg-gray-500 pb-3'>
+      <h1 className='text-6xl m-4 text-white'>wordle clone by JES</h1>
     </header>
 
     <div className='flex justify-center items-center text-6xl'>
-      {word}
+      <h1 className={visiable}>{word}</h1>
     </div>
     <div className='content-container flex flex-col justify-center items-center m-14 gap-4'>
-      <Input correct={word} increaseCount={increaseCount} increaseNum={1} setCorrect={setCorrect}/>
-      <Input correct={word} increaseCount={increaseCount} increaseNum={2} setCorrect={setCorrect}/>
-      <Input correct={word} increaseCount={increaseCount} increaseNum={3} setCorrect={setCorrect}/>
-      <Input correct={word} increaseCount={increaseCount} increaseNum={4} setCorrect={setCorrect}/>
-      <Input correct={word} increaseCount={increaseCount} increaseNum={5} setCorrect={setCorrect}/>
-      <Input correct={word} increaseCount={increaseCount} increaseNum={6} setCorrect={setCorrect}/>
+      <Input correct={word} setCount={setCount} setCorrect={setCorrect}/>
+      <Input correct={word} setCount={setCount} setCorrect={setCorrect}/>
+      <Input correct={word} setCount={setCount} setCorrect={setCorrect}/>
+      <Input correct={word} setCount={setCount} setCorrect={setCorrect}/>
+      <Input correct={word} setCount={setCount} setCorrect={setCorrect}/>
+      <Input correct={word} setCount={setCount} setCorrect={setCorrect}/>
     </div>
-    <footer className='flex justify-center'>
-      <h4>github : studentzzang</h4>
+    <footer className='absolute bottom-0 w-full p-5 bg-black'>
+      <h4 className='text-center text-white text-lg'>github : studentzzang</h4>
     </footer>
     </>
   );

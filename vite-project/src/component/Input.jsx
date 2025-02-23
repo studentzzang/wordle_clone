@@ -1,6 +1,6 @@
 import {useState, useRef, useEffect} from 'react';
 
-function Input(correct, increaseCount, increaseNum, setCorrect){
+function Input({correct, setCount, setCorrect}){
 
   const [letters, setLetters] = useState(["", "", "", "", ""]);
 
@@ -29,7 +29,7 @@ function Input(correct, increaseCount, increaseNum, setCorrect){
     if (!letters.includes("") && letters.length === 5) {
       checkLetters();
       onDisabled();
-      () => increaseCount(increaseNum);
+      setCount(prev=>prev+1);
     }
   }, [letters]); // letters가 변경될 때 실행됨
 
@@ -59,7 +59,7 @@ function Input(correct, increaseCount, increaseNum, setCorrect){
 
   const checkLetters = ()=>{
 
-    let cor = JSON.parse(JSON.stringify(correct)).correct.toUpperCase();
+    let cor = correct.toUpperCase();
 
     if (letters.join('')==cor){ // 모두 맞음
       ()=>setCorrect(true);
@@ -89,7 +89,8 @@ function Input(correct, increaseCount, increaseNum, setCorrect){
     <>
     <div className="container flex justify-center gap-4">
       {letters.map((letter,index)=> (
-        <input className={`w-30 h-30 text-4xl text-center uppercase border-2 border-b-gray-600 rounded-2xl ${styles[index]}`}
+        <input className={`w-30 h-30 text-4xl text-center uppercase border-2 border-b-gray-600 rounded-2xl
+          transition duration-300 ease-in-out ${styles[index]}`}
           key={index}
           ref={(el) => (inputsRef.current[index] = el)}
           type="text"
